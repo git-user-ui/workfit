@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './BottomTabs';
+import { COLORS } from '../constants';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,9 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
         animation: 'fade',
+        contentStyle: {
+          backgroundColor: COLORS.white,
+        },
       }}
     >
       <Stack.Screen name="MainTabs" component={BottomTabs} />

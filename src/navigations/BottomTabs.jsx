@@ -5,8 +5,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import HomeFilled from '../assets/icons/home-filled.svg';
 import HomeOutline from '../assets/icons/home-outline.svg';
+import ProfileOutline from '../assets/icons/person-outline.svg';
 // Screens
 import HomeScreen from '../screens/Home/HomeScreen';
+import { COLORS } from '../constants';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
 
 const HistoryScreen = () => (
   <View style={styles.placeholder}>
@@ -17,12 +20,6 @@ const HistoryScreen = () => (
 const ExercisesScreen = () => (
   <View style={styles.placeholder}>
     <Text style={styles.placeholderText}>Exercises</Text>
-  </View>
-);
-
-const ProfileScreen = () => (
-  <View style={styles.placeholder}>
-    <Text style={styles.placeholderText}>Profile</Text>
   </View>
 );
 
@@ -37,13 +34,36 @@ const BottomTabs = () => {
       tabBar={props => <CustomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
+        sceneStyle: {
+          backgroundColor: COLORS.white,
+        },
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="History" component={HistoryScreen} />
-      <Tab.Screen name="Add" component={AddScreen} />
-      <Tab.Screen name="Exercises" component={ExercisesScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ tabBarIcon: HomeOutline }}
+      />
+      <Tab.Screen
+        name="History"
+        component={HistoryScreen}
+        options={{ tabBarIcon: HomeOutline }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={AddScreen}
+        options={{ tabBarIcon: HomeOutline }}
+      />
+      <Tab.Screen
+        name="Exercises"
+        component={ExercisesScreen}
+        options={{ tabBarIcon: HomeOutline }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ tabBarIcon: HomeOutline }}
+      />
     </Tab.Navigator>
   );
 };
@@ -65,7 +85,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         return <HomeOutline width={21} height={21} color="#FFFFFF" />;
 
       case 'Profile':
-        return <HomeOutline width={21} height={21} color="#FFFFFF" />;
+        return <ProfileOutline width={21} height={21} color="#FFFFFF" />;
 
       default:
         return null;
@@ -83,7 +103,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
 
-          // Center + button
+          // Center + button`
           if (route.name === 'Add') {
             return (
               <View key={route.key} style={styles.centerTabContainer}>

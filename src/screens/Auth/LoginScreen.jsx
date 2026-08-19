@@ -15,6 +15,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import { COLORS, UNIQUE_VALUE } from '../../constants';
 import CustomTextInput from '../../components/common/CustomInput';
+import ButtonComponent from '../../components/common/ButtonComponent';
+
+// Assets
+import Eye from '../../assets/icons/eye-outline.svg';
+import EyeOff from '../../assets/icons/eye-off-outline.svg';
+import LockClosed from '../../assets/icons/lock-closed-outline.svg';
+import Mail from '../../assets/icons/mail-outline.svg';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -140,7 +147,11 @@ const LoginScreen = () => {
                       selected: showPassword,
                     }}
                   >
-                    <Text style={styles.eye}>{showPassword ? '◉' : '○'}</Text>
+                    {showPassword ? (
+                      <Eye style={styles.eye} />
+                    ) : (
+                      <EyeOff style={styles.eye} />
+                    )}
                   </TouchableOpacity>
                 </View>
               </View>
@@ -156,18 +167,11 @@ const LoginScreen = () => {
               </TouchableOpacity>
 
               {/* Login */}
-              <TouchableOpacity
-                style={styles.loginButton}
-                activeOpacity={0.85}
+              <ButtonComponent
+                title="Login"
                 onPress={handleLogin}
-                accessibilityRole="button"
-                accessibilityLabel="Login"
-              >
-                <Text style={styles.loginText}>Login</Text>
-
-                <Text style={styles.loginArrow}>→</Text>
-              </TouchableOpacity>
-
+                rightIcon={<Text style={styles.loginArrow}>→</Text>}
+              />
               {/* Divider */}
               <View style={styles.dividerRow}>
                 <View style={styles.line} />

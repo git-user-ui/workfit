@@ -7,7 +7,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import RootNavigator from './src/navigations/RootNavigator';
 
 //Constants
-import { UNIQUE_VALUE } from './src/constants';
+import { COLORS, UNIQUE_VALUE } from './src/constants';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,7 +15,7 @@ function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.safeArea]}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
         <RootNavigator />
       </SafeAreaView>
     </SafeAreaProvider>
@@ -27,5 +27,6 @@ export default App;
 const styles = StyleSheet.create({
   safeArea: {
     flex: UNIQUE_VALUE.flexOne,
+    backgroundColor: COLORS.white,
   },
 });

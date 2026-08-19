@@ -11,7 +11,7 @@ export const COLORS = {
   textPrimary: '#F5F5F7',
   textSecondary: '#A1A5B1',
   textMuted: '#6F7482',
-  white: '#FFFFFF',
+  white: '#FFF',
   purple: '#8B5CF6',
   green: '#20C997',
   orange: '#F97316',
