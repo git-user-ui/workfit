@@ -9,10 +9,16 @@ export const BORDER_RADIUS = {
 };
 
 export const ICON_SIZE = {
+  xxs: 12,
   xs: 14,
   sm: 16,
   md: 20,
   lg: 24,
   xl: 32,
   xxl: 40,
+};
+
+export const UNIQUE_VALUE = {
+  zero: 0,
+  flexOne: 1,
 };

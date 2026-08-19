@@ -6,5 +6,5 @@ export const SPACING = {
   xl: 20,
   xxl: 24,
   xxxl: 32,
-  huge: 40,
+  fourty: 40,
 };
