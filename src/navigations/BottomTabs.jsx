@@ -3,19 +3,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import HomeFilled from '../assets/icons/home-filled.svg';
 import HomeOutline from '../assets/icons/home-outline.svg';
 import ProfileOutline from '../assets/icons/person-outline.svg';
+import AddOutline from '../assets/icons/add-outline.svg';
+import HistoryIcon from '../assets/icons/refresh-outline.svg';
+import ExcercisIcon from '../assets/icons/barbell-outline.svg';
 // Screens
 import HomeScreen from '../screens/Home/HomeScreen';
 import { COLORS } from '../constants';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
-
-const HistoryScreen = () => (
-  <View style={styles.placeholder}>
-    <Text style={styles.placeholderText}>History</Text>
-  </View>
-);
+import WorkoutHistoryScreen from '../screens/Workouts/WorkoutHistoryScreen';
 
 const ExercisesScreen = () => (
   <View style={styles.placeholder}>
@@ -46,7 +43,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="History"
-        component={HistoryScreen}
+        component={WorkoutHistoryScreen}
         options={{ tabBarIcon: HomeOutline }}
       />
       <Tab.Screen
@@ -79,10 +76,10 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         return <HomeOutline width={21} height={21} color="#FFFFFF" />;
 
       case 'History':
-        return <HomeOutline width={21} height={21} color="#FFFFFF" />;
+        return <HistoryIcon width={21} height={21} color="#FFFFFF" />;
 
       case 'Exercises':
-        return <HomeOutline width={21} height={21} color="#FFFFFF" />;
+        return <ExcercisIcon width={21} height={21} color="#FFFFFF" />;
 
       case 'Profile':
         return <ProfileOutline width={21} height={21} color="#FFFFFF" />;
@@ -115,7 +112,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                   accessibilityLabel="Create workout"
                 >
                   <View style={styles.addButtonInner}>
-                    <HomeOutline color="#FFFFFF" width={28} height={28} />
+                    <AddOutline color="#FFFFFF" width={28} height={28} />
                   </View>
                 </TouchableOpacity>
               </View>

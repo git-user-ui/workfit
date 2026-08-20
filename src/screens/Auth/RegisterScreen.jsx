@@ -17,6 +17,14 @@ import { useNavigation } from '@react-navigation/native';
 import CustomTextInput from '../../components/common/CustomInput';
 import { getAuth } from '@react-native-firebase/auth';
 
+// Assets
+import Eye from '../../assets/icons/eye-outline.svg';
+import EyeOff from '../../assets/icons/eye-off-outline.svg';
+import LockClosed from '../../assets/icons/lock-closed-outline.svg';
+import Mail from '../../assets/icons/mail-outline.svg';
+import Profile from '../../assets/icons/person-outline.svg';
+import { COLORS } from '../../constants';
+
 const RegisterScreen = () => {
   // hooks
   const navigation = useNavigation();
@@ -131,7 +139,9 @@ const RegisterScreen = () => {
                 <Text style={styles.fieldLabel}>Full name</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputIcon}>●</Text>
+                  <View style={styles.inputIcon}>
+                    <Profile height={20} width={20} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     value={fullName}
@@ -157,7 +167,9 @@ const RegisterScreen = () => {
                 <Text style={styles.fieldLabel}>Email address</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputIcon}>@</Text>
+                  <View style={styles.inputIcon}>
+                    <Mail height={20} width={20} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     ref={emailRef}
@@ -184,7 +196,9 @@ const RegisterScreen = () => {
                 <Text style={styles.fieldLabel}>Password</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputIcon}>•</Text>
+                  <View style={styles.inputIcon}>
+                    <LockClosed height={20} width={20} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     ref={passwordRef}
@@ -214,9 +228,11 @@ const RegisterScreen = () => {
                       showPassword ? 'Hide password' : 'Show password'
                     }
                   >
-                    <Text style={styles.eyeIcon}>
-                      {showPassword ? '◉' : '○'}
-                    </Text>
+                    {showPassword ? (
+                      <Eye width={20} height={20} color={COLORS.white} />
+                    ) : (
+                      <EyeOff width={20} height={20} />
+                    )}
                   </TouchableOpacity>
                 </View>
 
@@ -251,7 +267,9 @@ const RegisterScreen = () => {
                     passwordMismatch && styles.inputContainerError,
                   ]}
                 >
-                  <Text style={styles.inputIcon}>•</Text>
+                  <View style={styles.inputIcon}>
+                    <LockClosed height={20} width={20} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     ref={confirmPasswordRef}
@@ -282,9 +300,11 @@ const RegisterScreen = () => {
                         : 'Show confirm password'
                     }
                   >
-                    <Text style={styles.eyeIcon}>
-                      {showConfirmPassword ? '◉' : '○'}
-                    </Text>
+                    {showConfirmPassword ? (
+                      <Eye width={20} height={20} color={COLORS.white} />
+                    ) : (
+                      <EyeOff width={20} height={20} />
+                    )}
                   </TouchableOpacity>
                 </View>
 
@@ -298,32 +318,35 @@ const RegisterScreen = () => {
               </View>
 
               {/* Terms */}
-              <TouchableOpacity
-                style={styles.termsRow}
-                onPress={() => setAgreed(prev => !prev)}
-                activeOpacity={0.8}
-                accessibilityRole="checkbox"
-                accessibilityState={{
-                  checked: agreed,
-                }}
-                accessibilityLabel="Agree to terms and privacy policy"
-              >
-                <View
+              <View style={styles.termsRow}>
+                <TouchableOpacity
                   style={[styles.checkbox, agreed && styles.checkboxActive]}
+                  onPress={() => setAgreed(prev => !prev)}
+                  activeOpacity={0.8}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: agreed }}
+                  accessibilityLabel="Agree to terms and privacy policy"
                 >
                   {agreed && <Text style={styles.checkmark}>✓</Text>}
-                </View>
+                </TouchableOpacity>
 
                 <Text style={styles.termsText}>
                   I agree to the{' '}
-                  <TouchableOpacity
+                  <Text
+                    style={styles.link}
                     onPress={() => navigation.navigate('Login')}
                   >
-                    <Text style={styles.link}>Terms & Conditions</Text>
-                  </TouchableOpacity>{' '}
-                  and <Text style={styles.link}>Privacy Policy</Text>
+                    Terms & Conditions
+                  </Text>{' '}
+                  and{' '}
+                  <Text
+                    style={styles.link}
+                    onPress={() => navigation.navigate('Login')}
+                  >
+                    Privacy Policy
+                  </Text>
                 </Text>
-              </TouchableOpacity>
+              </View>
 
               {/* Sign up */}
               <TouchableOpacity
@@ -572,7 +595,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     textAlign: 'center',
-    marginRight: 5,
+    marginLeft: 5,
   },
 
   input: {
@@ -653,26 +676,21 @@ const styles = StyleSheet.create({
   termsRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-
     marginTop: 1,
     marginBottom: 20,
-
     paddingVertical: 4,
   },
 
   checkbox: {
     width: 20,
     height: 20,
-
     borderRadius: 5,
     borderWidth: 1,
-
     borderColor: '#565D69',
-
     alignItems: 'center',
     justifyContent: 'center',
-
     marginRight: 9,
+    flexShrink: 0,
   },
 
   checkboxActive: {
@@ -696,6 +714,7 @@ const styles = StyleSheet.create({
 
   link: {
     color: '#956FF0',
+    fontSize: 11,
     fontWeight: '600',
   },
 

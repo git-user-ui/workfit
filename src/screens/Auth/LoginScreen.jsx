@@ -23,6 +23,7 @@ import Eye from '../../assets/icons/eye-outline.svg';
 import EyeOff from '../../assets/icons/eye-off-outline.svg';
 import LockClosed from '../../assets/icons/lock-closed-outline.svg';
 import Mail from '../../assets/icons/mail-outline.svg';
+import GoogleIcon from '../../assets/icons/logo-google.svg';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -43,6 +44,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Login With Email And Password
   const handleLogin = async () => {
@@ -52,6 +54,7 @@ const LoginScreen = () => {
     }
 
     try {
+      setLoading(true);
       await signInWithEmailAndPassword(auth, email.trim(), password);
     } catch (error) {
       if (error.code === 'auth/invalid-credential') {
@@ -59,6 +62,8 @@ const LoginScreen = () => {
       } else {
         Alert.alert('Error', error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -154,7 +159,9 @@ const LoginScreen = () => {
                 <Text style={styles.fieldLabel}>Email address</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputIcon}>@</Text>
+                  <View style={styles.inputIconContainer}>
+                    <Mail width={19} height={19} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     value={email}
@@ -177,10 +184,12 @@ const LoginScreen = () => {
 
               {/* Password */}
               <View style={styles.fieldGroup}>
-                <Text style={styles.fieldLabel}>Password</Text>
+                <Text style={styles.fieldLabel}>Email address</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputIcon}>•</Text>
+                  <View style={styles.inputIconContainer}>
+                    <LockClosed width={19} height={19} color={COLORS.white} />
+                  </View>
 
                   <CustomTextInput
                     ref={passwordRef}
@@ -188,7 +197,6 @@ const LoginScreen = () => {
                     onChangeText={setPassword}
                     placeholder="Enter your password"
                     placeholderColor="#737A88"
-                    keyboardType="default"
                     secureTextEntry={!showPassword}
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -204,18 +212,11 @@ const LoginScreen = () => {
                     onPress={() => setShowPassword(prev => !prev)}
                     style={styles.eyeButton}
                     activeOpacity={0.7}
-                    accessibilityRole="button"
-                    accessibilityLabel={
-                      showPassword ? 'Hide password' : 'Show password'
-                    }
-                    accessibilityState={{
-                      selected: showPassword,
-                    }}
                   >
                     {showPassword ? (
-                      <Eye style={styles.eye} />
+                      <Eye width={20} height={20} color={COLORS.white} />
                     ) : (
-                      <EyeOff style={styles.eye} />
+                      <EyeOff width={20} height={20} />
                     )}
                   </TouchableOpacity>
                 </View>
@@ -233,16 +234,16 @@ const LoginScreen = () => {
 
               {/* Login */}
               <ButtonComponent
+                disabled={loading}
                 title="Login"
+                loading={loading}
                 onPress={handleLogin}
                 rightIcon={<Text style={styles.loginArrow}>→</Text>}
               />
               {/* Divider */}
               <View style={styles.dividerRow}>
                 <View style={styles.line} />
-
                 <Text style={styles.orText}>OR</Text>
-
                 <View style={styles.line} />
               </View>
 
@@ -255,7 +256,7 @@ const LoginScreen = () => {
                 accessibilityLabel="Continue with Google"
               >
                 <View style={styles.googleLogoContainer}>
-                  <Text style={styles.googleLogo}>G</Text>
+                  <GoogleIcon fill={'#fff'} />
                 </View>
 
                 <Text style={styles.googleText}>Continue with Google</Text>
@@ -320,7 +321,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#090D15',
     paddingHorizontal: 22,
-    paddingTop: 55,
+    paddingTop: 40,
     paddingBottom: 30,
   },
 
@@ -395,59 +396,52 @@ const styles = StyleSheet.create({
   },
 
   /* ---------------- FORM ---------------- */
-
   form: {
-    marginTop: 30,
+    marginTop: 28,
   },
 
   fieldGroup: {
-    marginBottom: 16,
+    marginBottom: 18,
   },
 
   fieldLabel: {
-    color: '#C5C9D1',
-    fontSize: 12,
+    color: '#D0D4DC',
+    fontSize: 13,
     fontWeight: '600',
-    marginBottom: 7,
+    lineHeight: 18,
+    marginBottom: 8,
     marginLeft: 2,
   },
 
   inputContainer: {
-    minHeight: 52,
     width: '100%',
+    height: 54,
     flexDirection: 'row',
     alignItems: 'center',
-
     backgroundColor: '#151A23',
-
     borderWidth: 1,
-    borderColor: '#292F3A',
-
-    borderRadius: 11,
-
-    paddingLeft: 13,
-    paddingRight: 8,
+    borderColor: '#2A303C',
+    borderRadius: 12,
+    paddingLeft: 14,
+    paddingRight: 6,
   },
 
-  inputIcon: {
-    width: 30,
-    color: '#858C9A',
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginRight: 5,
+  inputIconContainer: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 7,
   },
 
   input: {
     flex: 1,
-    height: 50,
-
+    height: 52,
     color: '#F4F5F7',
     fontSize: 14,
-
-    paddingHorizontal: 4,
+    paddingHorizontal: 0,
     paddingVertical: 0,
-
+    margin: 0,
     borderWidth: 0,
     backgroundColor: 'transparent',
   },
@@ -462,7 +456,8 @@ const styles = StyleSheet.create({
 
   eye: {
     color: '#8D94A2',
-    fontSize: 18,
+    width: 20,
+    height: 20,
   },
 
   /* ---------------- FORGOT ---------------- */
@@ -471,7 +466,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     paddingVertical: 5,
     paddingHorizontal: 2,
-    marginTop: -4,
+    marginTop: -10,
     marginBottom: 18,
   },
 
@@ -600,8 +595,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-
-    marginTop: 35,
+    marginTop: 20,
   },
 
   signupText: {
@@ -617,10 +611,10 @@ const styles = StyleSheet.create({
   },
 
   footerText: {
-    color: '#4E5562',
+    color: COLORS.white,
     fontSize: 9,
     textAlign: 'center',
-    marginTop: 22,
+    marginTop: 10,
     letterSpacing: 0.3,
   },
 });

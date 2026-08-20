@@ -21,4 +21,5 @@ export const ICON_SIZE = {
 export const UNIQUE_VALUE = {
   zero: 0,
   flexOne: 1,
+  two: 2,
 };

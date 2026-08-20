@@ -77,7 +77,7 @@ function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.safeArea]}>
-        <StatusBar barStyle={isDarkMode ? 'dark-content' : 'dark-content'} />
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <RootNavigator user={user} />
       </SafeAreaView>
     </SafeAreaProvider>
