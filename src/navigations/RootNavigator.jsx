@@ -12,11 +12,11 @@ import { setLoading, setLoggedIn } from '../redux/slices/authSlice';
 
 // constants
 
-const RootNavigator = () => {
+const RootNavigator = ({ user }) => {
   const isLoggedIn = false;
   return (
     <NavigationContainer>
-      {isLoggedIn ? <AppStack /> : <AuthStack />}
+      {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

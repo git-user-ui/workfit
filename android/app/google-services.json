@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "74713581810",
+    "project_id": "workfit-production-d52b6",
+    "storage_bucket": "workfit-production-d52b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74713581810:android:4ffd723b96d5348f28686b",
+        "android_client_info": {
+          "package_name": "com.workfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74713581810-b63mp9r59nf6btinvp43a3k08pfqlk2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEuRPOrI102ukrBiW0mtpbxeNCEduLDRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74713581810-b63mp9r59nf6btinvp43a3k08pfqlk2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

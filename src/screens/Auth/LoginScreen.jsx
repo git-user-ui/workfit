@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -22,6 +23,17 @@ import Eye from '../../assets/icons/eye-outline.svg';
 import EyeOff from '../../assets/icons/eye-off-outline.svg';
 import LockClosed from '../../assets/icons/lock-closed-outline.svg';
 import Mail from '../../assets/icons/mail-outline.svg';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+} from '@react-native-firebase/auth';
+import { auth } from '../../configs/firebase';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -32,8 +44,61 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    console.log('Login:', { email, password });
+  // Login With Email And Password
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please enter email and password.');
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+    } catch (error) {
+      if (error.code === 'auth/invalid-credential') {
+        Alert.alert('Error', 'Invalid credentials given.');
+      } else {
+        Alert.alert('Error', error.message);
+      }
+    }
+  };
+
+  //Login With Google OAuth
+  const handleGoogleLogin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+
+      const response = await GoogleSignin.signIn();
+
+      console.log('Google response:', response);
+
+      if (response.type === 'cancelled') {
+        return;
+      }
+
+      const idToken = response.data?.idToken;
+
+      if (!idToken) {
+        throw new Error('Google ID token was not received.');
+      }
+
+      const googleCredential = GoogleAuthProvider.credential(idToken);
+
+      await signInWithCredential(getAuth(), googleCredential);
+      // await createUserProfile();
+    } catch (error) {
+      console.log('Google Sign-In Error:', error);
+
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        return;
+      }
+
+      Alert.alert(
+        'Google Sign-In Error',
+        error.message || 'Something went wrong',
+      );
+    }
   };
 
   const isDarkmode = useColorScheme() === 'dark';
@@ -183,6 +248,7 @@ const LoginScreen = () => {
 
               {/* Google */}
               <TouchableOpacity
+                onPress={handleGoogleLogin}
                 style={styles.googleButton}
                 activeOpacity={0.8}
                 accessibilityRole="button"

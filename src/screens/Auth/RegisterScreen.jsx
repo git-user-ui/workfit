@@ -1,6 +1,7 @@
 // React Imports
 import React, { useRef, useState } from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -14,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // Components
 import CustomTextInput from '../../components/common/CustomInput';
+import { getAuth } from '@react-native-firebase/auth';
 
 const RegisterScreen = () => {
   // hooks
@@ -46,17 +48,28 @@ const RegisterScreen = () => {
     passwordsMatch &&
     agreed;
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!isFormValid) {
+      Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
 
-    // We will Add Login Logic Here Later
-    console.log('Register:', {
-      fullName,
-      email,
-      password,
-    });
+    try {
+      await getAuth().createUserWithEmailAndPassword(email.trim(), password);
+      // await createUserProfile();
+    } catch (error) {
+      console.log(error);
+
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('Error', 'That email address is already in use!');
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert('Error', 'That email address is invalid!');
+      } else if (error.code === 'auth/weak-password') {
+        Alert.alert('Error', 'Password should be at least 6 characters.');
+      } else {
+        Alert.alert('Error', error.message);
+      }
+    }
   };
 
   return (
