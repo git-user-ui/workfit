@@ -4,13 +4,21 @@ import Header from '../../components/common/Header';
 import { COLORS, SPACING } from '../../constants';
 import MainCard from '../../components/MainCard';
 
+// Data
+import excercise from '../../data/exercises.json';
+
 const WorkoutHistoryScreen = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" showHideTransition="fade" />
-      <Header title={'History'} middle={true} isFilter={true} />
+      <Header title={'History'} isFilter={true} />
 
-      <MainCard />
+      <MainCard
+        excercise={excercise}
+        isbottomContainerRequired={true}
+        isTimeRequired={true}
+        isWorkout={true}
+      />
     </View>
   );
 };

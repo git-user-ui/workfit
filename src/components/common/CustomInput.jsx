@@ -45,7 +45,6 @@ CustomTextInput.displayName = 'CustomTextInput';
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
     color: '#F4F5F7',
     fontSize: 14,
     paddingHorizontal: 4,

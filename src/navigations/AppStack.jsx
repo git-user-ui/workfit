@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './BottomTabs';
 import { COLORS } from '../constants';
+import AddExcercise from '../screens/Workouts/AddExcercise';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const AppStack = () => {
       }}
     >
       <Stack.Screen name="MainTabs" component={BottomTabs} />
+      <Stack.Screen name="AddExcercise" component={AddExcercise} />
     </Stack.Navigator>
   );
 };

@@ -3,8 +3,13 @@ import React from 'react';
 import { signOut } from '@react-native-firebase/auth';
 import ButtonComponent from '../../components/common/ButtonComponent';
 import { auth } from '../../configs/firebase';
+import Header from '../../components/common/Header';
+import { COLORS, SPACING } from '../../constants';
+import UserProfile from '../../components/Profile/UserProfile';
 
 const ProfileScreen = () => {
+  const { email, photoURL } = auth.currentUser;
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -14,13 +19,19 @@ const ProfileScreen = () => {
     }
   };
   return (
-    <View>
-      <Text>ProfileScreen</Text>
-      <ButtonComponent title={'Logout'} onPress={handleLogout} />
+    <View style={styles.container}>
+      <Header isBackArrowRequired={false} title={'Profile'} isSetting={true} />
+      <UserProfile email={email} photoUrl={photoURL} />
     </View>
   );
 };
 
 export default ProfileScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: SPACING.xl,
+  },
+});

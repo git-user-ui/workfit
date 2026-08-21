@@ -10,9 +10,10 @@ import HistoryIcon from '../assets/icons/refresh-outline.svg';
 import ExcercisIcon from '../assets/icons/barbell-outline.svg';
 // Screens
 import HomeScreen from '../screens/Home/HomeScreen';
-import { COLORS } from '../constants';
+import { COLORS, SPACING } from '../constants';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import WorkoutHistoryScreen from '../screens/Workouts/WorkoutHistoryScreen';
+import ExcerciseLibrary from '../screens/Excercises/ExcerciseLibrary';
 
 const ExercisesScreen = () => (
   <View style={styles.placeholder}>
@@ -53,7 +54,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="Exercises"
-        component={ExercisesScreen}
+        component={ExcerciseLibrary}
         options={{ tabBarIcon: HomeOutline }}
       />
       <Tab.Screen
@@ -223,7 +224,8 @@ const styles = StyleSheet.create({
   },
 
   activeIconContainer: {
-    backgroundColor: 'rgba(112, 65, 232, 0.12)',
+    backgroundColor: '#9B6CFF',
+    borderRadius: SPACING.sm,
   },
 
   tabLabel: {
