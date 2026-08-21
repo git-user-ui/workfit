@@ -6,6 +6,7 @@ import { auth } from '../../configs/firebase';
 import Header from '../../components/common/Header';
 import { COLORS, SPACING } from '../../constants';
 import UserProfile from '../../components/Profile/UserProfile';
+import ProfileComponent from '../../components/Profile/ProfileComponent';
 
 const ProfileScreen = () => {
   const { email, photoURL } = auth.currentUser;
@@ -22,6 +23,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <Header isBackArrowRequired={false} title={'Profile'} isSetting={true} />
       <UserProfile email={email} photoUrl={photoURL} />
+      <ProfileComponent />
     </View>
   );
 };
